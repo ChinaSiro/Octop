@@ -2,7 +2,14 @@
 
 from __future__ import annotations
 
-from octop.api.app import dashboard_cache_control, is_dashboard_asset_path
+from octop.api.app import dashboard_cache_control, dashboard_media_type, is_dashboard_asset_path
+
+
+def test_manifest_is_served_as_web_manifest() -> None:
+    assert dashboard_media_type("manifest.json") == "application/manifest+json"
+    assert dashboard_media_type("assets/manifest.json") == "application/manifest+json"
+    assert dashboard_media_type("sw.js") is None
+    assert dashboard_media_type("") is None
 
 
 def test_shell_files_are_revalidated() -> None:

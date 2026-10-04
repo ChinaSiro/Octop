@@ -33,6 +33,14 @@ class _RouterMount:
 _NO_CACHE_DASHBOARD_NAMES = frozenset({"sw.js", "manifest.json", "index.html"})
 
 
+def dashboard_media_type(full_path: str) -> str | None:
+    """Content-Type override when the filename suffix is ambiguous."""
+    name = Path(full_path).name.lower() if full_path else ""
+    if name == "manifest.json":
+        return "application/manifest+json"
+    return None
+
+
 def dashboard_cache_control(full_path: str) -> str | None:
     """Cache-Control for a dashboard SPA path, or ``None`` to leave unset."""
     name = Path(full_path).name.lower() if full_path else "index.html"
@@ -45,7 +53,7 @@ def dashboard_cache_control(full_path: str) -> str | None:
 
 
 def _dashboard_response(path: Path, full_path: str) -> FileResponse:
-    response = FileResponse(path)
+    response = FileResponse(path, media_type=dashboard_media_type(full_path))
     cache_control = dashboard_cache_control(full_path)
     if cache_control is not None:
         response.headers["Cache-Control"] = cache_control

@@ -189,6 +189,8 @@ export default defineConfig(({ mode }) => {
           "logo_horizontal_white.png",
           "pwa-192.png",
           "pwa-512.png",
+          "pwa-maskable-192.png",
+          "pwa-maskable-512.png",
           "apple-touch-icon.png",
         ],
         workbox: {

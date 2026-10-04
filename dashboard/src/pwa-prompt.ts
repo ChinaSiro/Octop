@@ -111,7 +111,15 @@ export async function triggerInstall(): Promise<
   "accepted" | "dismissed" | "unavailable"
 > {
   if (!_deferredPrompt) return "unavailable";
-  await _deferredPrompt.prompt();
+  try {
+    // prompt() rejects without a user gesture (NotAllowedError) or if this
+    // event was already used (InvalidStateError). Keep the event on failure
+    // so a later tap can retry; a dead event is replaced on the next
+    // beforeinstallprompt.
+    await _deferredPrompt.prompt();
+  } catch {
+    return "unavailable";
+  }
   const { outcome } = await _deferredPrompt.userChoice;
   _deferredPrompt = null;
   _notify();

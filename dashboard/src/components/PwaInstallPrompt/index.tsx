@@ -81,12 +81,13 @@ export function IosGuide({ onClose }: { onClose: () => void }) {
 
 export function DesktopInstallGuide({ onClose }: { onClose: () => void }) {
   const isEdge = /edg/i.test(navigator.userAgent);
+  const isAndroid = /android/i.test(navigator.userAgent);
   return createPortal(
     <div
       className={styles.desktopOverlay}
       role="dialog"
       aria-modal="true"
-      aria-label="安装为桌面应用"
+      aria-label={isAndroid ? "安装到主屏幕" : "安装为桌面应用"}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -99,34 +100,58 @@ export function DesktopInstallGuide({ onClose }: { onClose: () => void }) {
         >
           <X size={18} />
         </button>
-        <div className={styles.guideTitle}>安装为桌面应用</div>
+        <div className={styles.guideTitle}>
+          {isAndroid ? "安装到主屏幕" : "安装为桌面应用"}
+        </div>
         <p className={styles.guideDesc}>
-          浏览器尚未准备好一键安装。请按以下方式操作，或刷新页面后再点 Header
-          中的安装按钮。
+          {isAndroid
+            ? "浏览器没有弹出安装对话框。请用 Chrome 菜单手动安装。"
+            : "浏览器尚未准备好一键安装。请按以下方式操作，或刷新页面后再点 Header 中的安装按钮。"}
         </p>
         <ol className={styles.guideList}>
-          <li>
-            <span className={styles.guideStep}>1</span>
-            <span>
-              查看地址栏右侧的{" "}
-              <MonitorDown size={14} className={styles.guideInlineIcon} />{" "}
-              安装图标并点击
-            </span>
-          </li>
-          <li>
-            <span className={styles.guideStep}>2</span>
-            <span>
-              或打开浏览器菜单，选择「{isEdge ? "应用" : "安装"} Octop」/
-              Install Octop
-            </span>
-          </li>
-          <li>
-            <span className={styles.guideStep}>3</span>
-            <span>确认安装后，可从桌面或程序坞一键打开</span>
-          </li>
+          {isAndroid ? (
+            <>
+              <li>
+                <span className={styles.guideStep}>1</span>
+                <span>点右上角「⋮」菜单</span>
+              </li>
+              <li>
+                <span className={styles.guideStep}>2</span>
+                <span>选择「安装应用」或「添加到主屏幕」</span>
+              </li>
+              <li>
+                <span className={styles.guideStep}>3</span>
+                <span>在系统对话框中确认。安装完成后从主屏幕打开</span>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <span className={styles.guideStep}>1</span>
+                <span>
+                  查看地址栏右侧的{" "}
+                  <MonitorDown size={14} className={styles.guideInlineIcon} />{" "}
+                  安装图标并点击
+                </span>
+              </li>
+              <li>
+                <span className={styles.guideStep}>2</span>
+                <span>
+                  或打开浏览器菜单，选择「{isEdge ? "应用" : "安装"} Octop」/
+                  Install Octop
+                </span>
+              </li>
+              <li>
+                <span className={styles.guideStep}>3</span>
+                <span>确认安装后，可从桌面或程序坞一键打开</span>
+              </li>
+            </>
+          )}
         </ol>
         <p className={styles.guideHint}>
-          通过局域网 IP 访问时需使用 HTTPS，否则浏览器不会提供安装选项。
+          {isAndroid
+            ? "请使用系统信任的 HTTPS 证书。在警告页点过「继续访问」的证书，Chrome 仍会拒绝安装。"
+            : "通过局域网 IP 访问时需使用 HTTPS，否则浏览器不会提供安装选项。"}
         </p>
       </div>
     </div>,
