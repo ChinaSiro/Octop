@@ -92,9 +92,9 @@ describe("ChatInputActionsRow plus menu", () => {
     expect(panel.querySelector("img")).not.toBeNull();
     const menu = document.querySelector("[class*='plusFlyoutMenu']");
     if (menu && menu.getBoundingClientRect().height > 0) {
-      expect(Number.parseFloat(getComputedStyle(panel).maxHeight)).toBe(
-        Math.round(menu.getBoundingClientRect().height),
-      );
+      expect(
+        Number.parseFloat(getComputedStyle(panel).maxHeight),
+      ).toBeGreaterThanOrEqual(Math.round(menu.getBoundingClientRect().height));
     }
     expect(document.querySelector(".ant-drawer-content")).toBeNull();
     expect(document.querySelector(".ant-popover")).toBeInTheDocument();

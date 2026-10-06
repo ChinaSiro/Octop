@@ -1011,7 +1011,7 @@
 
 .plusFlyoutPanel {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: calc(100% + 16px);
   max-width: calc(100vw - 48px);
 }
@@ -1122,6 +1122,28 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.mobileOverflowItemCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 5px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  color: #fff;
+  background: #2563eb;
+  position: relative;
+  top: 1px;
+}
+
+.mobileOverflowItemCountText {
+  text-box: trim-both cap alphabetic;
 }
 
 .connectorMenuIcon {

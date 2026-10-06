@@ -90,6 +90,7 @@ function resolveModelLogo(model: {
 
 // These browser APIs never change at runtime — compute once.
 const _sttAvailable = isSttAvailable();
+const PICKER_PANEL_MIN_HEIGHT = 400;
 
 interface ChatInputActionsRowProps {
   isMobile: boolean;
@@ -681,13 +682,15 @@ export default function ChatInputActionsRow({
           <span className={styles.mobileOverflowItemMain}>
             <BookOpen size={16} />
             <span>{t("chat.knowledgePicker")}</span>
-          </span>
-          <span className={styles.mobileOverflowItemMeta}>
             {selectedKnowledgeBaseIds.length > 0 && (
-              <span className={styles.toolbarBadge}>
-                {selectedKnowledgeBaseIds.length}
+              <span className={styles.mobileOverflowItemCount}>
+                <span className={styles.mobileOverflowItemCountText}>
+                  {selectedKnowledgeBaseIds.length}
+                </span>
               </span>
             )}
+          </span>
+          <span className={styles.mobileOverflowItemMeta}>
             <ChevronRight size={16} />
           </span>
         </button>
@@ -878,7 +881,12 @@ export default function ChatInputActionsRow({
                     }
                     style={
                       !isMobile && plusMenuHeight
-                        ? { maxHeight: plusMenuHeight }
+                        ? {
+                            maxHeight: Math.max(
+                              plusMenuHeight,
+                              PICKER_PANEL_MIN_HEIGHT,
+                            ),
+                          }
                         : undefined
                     }
                     data-testid="composer-plus-panel"
