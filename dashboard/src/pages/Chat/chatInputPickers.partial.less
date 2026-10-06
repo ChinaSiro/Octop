@@ -977,6 +977,7 @@
     white-space: nowrap;
   }
 
+  .skillPickerSearch,
   .modelMenuDivider,
   .modelMenuFooter {
     flex-shrink: 0;
@@ -1011,9 +1012,14 @@
 
 .plusFlyoutPanel {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: calc(100% + 16px);
   max-width: calc(100vw - 48px);
+}
+
+.plusFlyoutPanelAlignBottom {
+  top: auto;
+  bottom: 0;
 }
 
 .plusFlyoutPanelInPlace {
@@ -1140,6 +1146,14 @@
   background: #2563eb;
   position: relative;
   top: 1px;
+}
+
+.mobileOverflowItemCountExpert {
+  background: #d97706;
+}
+
+.mobileOverflowItemCountSubagent {
+  background: #0d9488;
 }
 
 .mobileOverflowItemCountText {

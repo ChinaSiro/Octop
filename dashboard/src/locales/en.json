@@ -1428,6 +1428,8 @@
     "subagentPickerEmpty": "No installed subagents",
     "subagentPickerManage": "Manage subagents",
     "modelPickerManage": "Manage models",
+    "modelPickerSearch": "Search models",
+    "modelPickerEmpty": "No matching models",
     "sessionWorking": "Working",
     "composerContextLabel": "Message context",
     "contextWindow": {
